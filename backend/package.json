@@ -1,0 +1,21 @@
+{
+  "name": "anime-info-backend",
+  "version": "1.0.0",
+  "description": "動漫資訊站後端 API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node db/seed.js"
+  },
+  "keywords": [
+    "anime",
+    "express",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
