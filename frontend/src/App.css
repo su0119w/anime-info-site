@@ -216,3 +216,8 @@ a:hover {
 .back-link:hover{
   color: #225609;
 }
+
+.anime-image{
+  width: 200px;
+  border-radius: 15px;
+}
