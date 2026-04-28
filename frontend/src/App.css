@@ -172,7 +172,7 @@ a:hover {
 }
 
 .detailed {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -220,4 +220,51 @@ a:hover {
 .anime-image{
   width: 200px;
   border-radius: 15px;
+}
+.jptitle{
+  font-size: 14px;
+  display: inline-block;
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 6px 10px;
+  margin-left: 10px;
+  border-radius: 999px;
+  
+}
+.manga-table{
+  width: 100%;
+  border-collapse:collapse ;
+  background-color: rgb(254, 255, 235);
+  border-radius: 10px;
+}
+.manga-table th{
+  background-color: #eaffde;
+  padding: 5px 8px;
+  border:2px solid black;
+}
+.manga-table td{
+  padding: 10px;
+  border:1px solid black;
+  text-align: center;
+}
+.manga-table th:hover{
+  background-color: #d4ff9f;
+}
+.manga-table td:hover{
+  background-color: #f5ffef;
+}
+
+.link-group{
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.link-group a{
+  background-color: #225609;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 999px;
+}
+.link-group a:hover{
+  background-color: #a8e063;
 }

@@ -14,7 +14,17 @@ db.exec(`
     season TEXT,
     episodes INTEGER,
     status TEXT,
-    platformId INTEGER
+    platformId INTEGER,
+    titleJp TEXT,
+    releaseDate TEXT,
+    studio TEXT,
+    originalType TEXT,
+    originalAuthor TEXT,
+    mangaTitle TEXT,
+    mangaStatus TEXT,
+    officialSite TEXT,
+    wikipedia TEXT,
+    platformAnimeUrl TEXT
   )
 `);
 

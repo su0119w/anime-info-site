@@ -8,7 +8,7 @@ function AnimeDetailPage() {
   const { id } = useParams();
   const [anime, setAnime] = useState(null);
   const [platforms, setPlatforms] = useState([]);
-
+  const [mangaVolumes, setMangaVolumes] = useState([]);
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/animes/${id}`)
       .then((res) => res.json())
@@ -25,9 +25,21 @@ function AnimeDetailPage() {
       });
   }, []);
 
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/mangaVolumes`)
+      .then((res) => res.json())
+      .then((data) => {
+        setMangaVolumes(data)
+      })
+  }, [])
+
+
   if (!anime) {
     return <p>載入中...</p>;
   }
+  const mangaList = mangaVolumes.filter((item) => {
+    return item.animeId === anime.id
+  });
 
   const platform = platforms.find((item) => item.id === anime.platformId);
 
@@ -49,17 +61,64 @@ function AnimeDetailPage() {
 
       <div className="detailed">
         <div className="detailed-left">
-          <h2>{anime.title}</h2>
+
+          <h2>{anime.title}<span className="jptitle">日文:{anime.titleJp}</span></h2>
           <img src={anime.image} className="detail-image" alt={anime.title} />
         </div>
 
         <div className="detailed-right">
+          <h3>詳細</h3>
           <p>{anime.description}</p>
           <p>類型：{anime.genre}</p>
           <p>季度：{anime.season}</p>
           <p>集數：{anime.episodes}</p>
           <p>狀態：{anime.status}</p>
           <p>播放平台：{platform ? platform.name : "載入中..."}</p>
+          <p>首播日期:{anime.releaseDate}</p>
+          <p>製作公司:{anime.studio}</p>
+          <hr></hr>
+          <h3>{anime.originalType}</h3>
+          <p>作者:{anime.originalAuthor}</p>
+          <p>狀態:{anime.mangaStatus}</p>
+
+
+          <table className="manga-table">
+            <thead>
+              <tr>
+                <th rowSpan={2}>集數</th>
+                <th colSpan={2}>標題</th>
+                <th colSpan={2}>發售日</th>
+                <th rowSpan={2}>封面人物</th>
+              </tr>
+              <tr>
+                <th>日文標題</th>
+                <th>中文標題</th>
+                <th>日本發售日</th>
+                <th>台灣發售日</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mangaList.map((item) => (
+                <tr key={item.volume}>
+                  <td>{item.volume}</td>
+                  <td>{item.titleJp}</td>
+                  <td>{item.titleTw}</td>
+                  <td>{item.releaseDateJp}</td>
+                  <td>{item.releaseDateTw}</td>
+                  <td>{item.coverCharacter}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+
+          <hr></hr>
+          <h3>資料</h3>
+          <div className="link-group">
+            <p><a href={anime.officialSite} target="_blank" rel="noreferrer">{anime.title}官網</a></p>
+            <p><a href={anime.wikipedia} target="_blank" rel="noreferrer">{anime.title}維基百科</a></p>
+            <p><a href={anime.platformAnimeUrl} target="_blank" rel="noreferrer">{anime.title} 平台觀看</a></p>
+          </div>
         </div>
       </div>
     </div>

@@ -4,8 +4,28 @@ const animes = require("../data/animes");
 db.exec("DELETE FROM animes");
 
 const insertAnime = db.prepare(`
-  INSERT INTO animes (id, title, image, description, genre, season, episodes, status, platformId)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  INSERT INTO animes (
+    id,
+    title,
+    image,
+    description,
+    genre,
+    season,
+    episodes,
+    status,
+    platformId,
+    titleJp,
+    releaseDate,
+    studio,
+    originalType,
+    originalAuthor,
+    mangaTitle,
+    mangaStatus,
+    officialSite,
+    wikipedia,
+    platformAnimeUrl
+  )
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
 for (const anime of animes) {
@@ -18,7 +38,17 @@ for (const anime of animes) {
     anime.season,
     anime.episodes,
     anime.status,
-    anime.platformId
+    anime.platformId,
+    anime.titleJp,
+    anime.releaseDate,
+    anime.studio,
+    anime.originalType,
+    anime.originalAuthor,
+    anime.mangaTitle,
+    anime.mangaStatus,
+    anime.officialSite,
+    anime.wikipedia,
+    anime.platformAnimeUrl
   );
 }
 

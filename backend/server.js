@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./db/database");
 const platforms = require("./data/platforms");
+const mangaVolumes=require("./data/mangaVolumes");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -53,13 +54,26 @@ app.get("/api/platforms", (req, res) => {
   res.json(platforms);
 });
 
+app.get("/api/mangaVolumes",(req,res)=>{
+  res.json(mangaVolumes);
+})
+
 app.post("/api/animes", (req, res) => {
-  const { title, image, description, genre, season, episodes, status, platformId } = req.body;
+  const { title, image, description, genre, season, episodes, 
+    status, platformId, titleJp, releaseDate, studio,originalType,
+    originalAuthor,mangaTitle,mangaStatus,officialSite,wikipedia,
+    platformAnimeUrl } = req.body;
 
   const result = db.prepare(`
-    INSERT INTO animes (title, image, description, genre, season, episodes, status, platformId)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(title, image, description, genre, season, episodes, status, platformId);
+    INSERT INTO animes (title, image, description, genre, season, episodes, 
+    status, platformId, titleJp, releaseDate, studio,originalType,
+    originalAuthor,mangaTitle,mangaStatus,officialSite,wikipedia,
+    platformAnimeUrl)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?)
+  `).run(title, image, description, genre, season, episodes, 
+    status, platformId, titleJp, releaseDate, studio,originalType,
+    originalAuthor,mangaTitle,mangaStatus,officialSite,wikipedia,
+    platformAnimeUrl);
 
   const anime = db.prepare("SELECT * FROM animes WHERE id = ?").get(result.lastInsertRowid);
 
@@ -81,13 +95,39 @@ app.put("/api/animes/:id", (req, res) => {
     });
   }
 
-  const { title, image, description, genre, season, episodes, status, platformId } = req.body;
+  const { title, image, description, genre, season, episodes, 
+    status, platformId, titleJp, releaseDate, studio,originalType,
+    originalAuthor,mangaTitle,mangaStatus,officialSite,wikipedia,
+    platformAnimeUrl} = req.body;
 
   db.prepare(`
     UPDATE animes
-    SET title = ?, image = ?, description = ?, genre = ?, season = ?, episodes = ?, status = ?, platformId = ?
+    SET title = ?, image = ?, description = ?, genre = ?, season = ?, episodes = ?, status = ?, platformId = ?,
+    titleJp = ?, releaseDate = ?, studio = ?, originalType = ?, originalAuthor = ?, mangaTitle = ?,
+    mangaStatus = ?, officialSite = ?, wikipedia = ?, platformAnimeUrl = ?
     WHERE id = ?
-  `).run(title, image, description, genre, season, episodes, status, platformId, animeId);
+  `).run(
+  title,
+  image,
+  description,
+  genre,
+  season,
+  episodes,
+  status,
+  platformId,
+  titleJp,
+  releaseDate,
+  studio,
+  originalType,
+  originalAuthor,
+  mangaTitle,
+  mangaStatus,
+  officialSite,
+  wikipedia,
+  platformAnimeUrl,
+  animeId
+);
+
 
   const updatedAnime = db.prepare("SELECT * FROM animes WHERE id = ?").get(animeId);
 
